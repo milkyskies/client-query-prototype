@@ -43,7 +43,7 @@ const Page: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={WEEKLY_SALES_DATA}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                margin={{ top: 24, right: 32, left: 24, bottom: 24 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis
@@ -51,11 +51,25 @@ const Page: FC = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: "#6b7280" }}
+                  label={{
+                    value: "曜日",
+                    position: "bottom",
+                    offset: 0,
+                    fill: "#6b7280",
+                  }}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: "#6b7280" }}
+                  label={{
+                    value: "売上 (円)",
+                    angle: -90,
+                    position: "insideLeft",
+                    dy: 60,
+                    dx: -10,
+                    fill: "#6b7280",
+                  }}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
@@ -68,7 +82,8 @@ const Page: FC = () => {
                         </div>
                       );
                     }
-                    return null;
+
+                    return;
                   }}
                 />
                 <Bar dataKey="sales" fill="#3b82f6" radius={[4, 4, 0, 0]} />
