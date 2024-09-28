@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm"
+  },
+  "devDependencies": {
+    "@client-query/config": "workspace:*"
+  }
+}
