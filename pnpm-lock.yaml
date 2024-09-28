@@ -61,6 +61,9 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
     devDependencies:
+      '@client-query/config':
+        specifier: workspace:*
+        version: link:../config
       '@prisma/client':
         specifier: ^5.20.0
         version: 5.20.0(prisma@5.20.0)
@@ -85,6 +88,10 @@ importers:
       '@prisma/client':
         specifier: ^5.20.0
         version: 5.20.0(prisma@5.20.0)
+    devDependencies:
+      prisma:
+        specifier: ^5.20.0
+        version: 5.20.0
 
   packages/server:
     dependencies:

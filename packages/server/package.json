@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "pnpm --filter @client-query/core build",
     "build": "tsc -p tsconfig.json",
     "start": "node build",
     "dev": "nodemon --watch src src/index.ts"

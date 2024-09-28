@@ -2,9 +2,9 @@
   "name": "@client-query/core",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,8 @@
     "@types/node": "^22.7.4",
     "prisma": "latest",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "@client-query/config": "workspace:*"
   },
   "dependencies": {
     "dayjs": "^1.11.13"
