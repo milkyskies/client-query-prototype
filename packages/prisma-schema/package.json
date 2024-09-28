@@ -1,0 +1,22 @@
+{
+  "name": "@client-query/prisma-schema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "migrate:ci": "prisma migrate deploy",
+    "seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@client-query/core": "workspace:*",
+    "@prisma/client": "^5.20.0"
+  }
+}

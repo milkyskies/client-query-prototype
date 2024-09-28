@@ -1,0 +1,118 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Dish {
+  id          Int              @id @default(autoincrement()) @map("id")
+  name        String           @map("name")
+  description String           @map("description")
+  price       Float            @map("price")
+  category    DishCategory     @map("category")
+  ingredients DishIngredient[]
+  orderDishes OrderDish[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("dishes")
+}
+
+model DishIngredient {
+  dishId       Int        @map("dish_id")
+  ingredientId Int        @map("ingredient_id")
+  quantity     Float      @map("quantity")
+  dish         Dish       @relation(fields: [dishId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@id([dishId, ingredientId])
+  @@map("dish_ingredients")
+}
+
+model Ingredient {
+  id     Int              @id @default(autoincrement()) @map("id")
+  name   String           @map("name")
+  unit   String           @map("unit")
+  dishes DishIngredient[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ingredients")
+}
+
+model Order {
+  id          Int         @id @default(autoincrement()) @map("id")
+  tableNumber Int         @map("table_number")
+  status      OrderStatus @map("status")
+  dishes      OrderDish[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("orders")
+}
+
+model OrderDish {
+  order    Order @relation(fields: [orderId], references: [id])
+  orderId  Int   @map("order_id")
+  dish     Dish  @relation(fields: [dishId], references: [id])
+  dishId   Int   @map("dish_id")
+  quantity Int   @map("quantity")
+
+  @@id([orderId, dishId])
+  @@map("order_dish")
+}
+
+model Reservation {
+  id           Int               @id @default(autoincrement()) @map("id")
+  customerName String            @map("customer_name")
+  time         DateTime          @map("time")
+  partySize    Int               @map("party_size")
+  status       ReservationStatus @map("status")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("reservations")
+}
+
+enum DishCategory {
+  APPETIZER
+  MAIN_COURSE
+  DESSERT
+  BEVERAGE
+
+  @@map("dish_categories")
+}
+
+enum OrderStatus {
+  PENDING
+  PREPARING
+  SERVED
+  PAID
+
+  @@map("order_statuses")
+}
+
+enum Position {
+  CHEF
+  SOUS_CHEF
+  WAITER
+  HOST
+  MANAGER
+
+  @@map("positions")
+}
+
+enum ReservationStatus {
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+
+  @@map("reservation_statuses")
+}

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@client-query/shared": "workspace:*",
+    "@client-query/core": "workspace:*",
     "react": "^18",
     "react-dom": "^18",
     "next": "14.2.13"

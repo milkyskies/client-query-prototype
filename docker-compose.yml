@@ -1,0 +1,11 @@
+services:
+  database:
+    image: postgres:15
+    restart: on-failure
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: client-query
+      POSTGRES_PORT: 5432

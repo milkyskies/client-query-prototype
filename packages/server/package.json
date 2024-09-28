@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@client-query/shared": "workspace:*",
+    "@client-query/core": "workspace:*",
     "fastify": "^5.0.0"
   },
   "devDependencies": {
