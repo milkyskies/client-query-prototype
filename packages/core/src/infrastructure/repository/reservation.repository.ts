@@ -1,5 +1,5 @@
 import type { Prisma, PrismaClient } from "@prisma/client";
-import type { ReservationEntity } from "../../domain/entity/reservation.entity";
+import { ReservationEntity } from "../../domain/entity/reservation.entity";
 
 export class ReservationRepository {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -13,5 +13,11 @@ export class ReservationRepository {
 		await prisma.reservation.createManyAndReturn({
 			data: reservation.map((entity) => entity.toPrisma()),
 		});
+	}
+
+	async findAll(): Promise<ReservationEntity[]> {
+		const rows = await this.prisma.reservation.findMany();
+
+		return rows.map((row) => ReservationEntity.fromPrisma(row));
 	}
 }

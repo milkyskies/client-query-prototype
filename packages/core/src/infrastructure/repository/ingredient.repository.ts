@@ -46,4 +46,12 @@ export class IngredientRepository {
 
 		return IngredientEntity.fromPrisma(row);
 	}
+
+	async findAll(tx?: Prisma.TransactionClient): Promise<IngredientEntity[]> {
+		const prisma = tx ?? this.prisma;
+
+		const rows = await prisma.ingredient.findMany();
+
+		return rows.map((row) => IngredientEntity.fromPrisma(row));
+	}
 }

@@ -1,5 +1,6 @@
 import type { Prisma, PrismaClient } from "@prisma/client";
 import { DishEntity } from "../../domain/entity/dish.entity";
+import { IngredientEntity } from "src/domain/entity/ingredient.entity";
 
 export class DishRepository {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -30,5 +31,25 @@ export class DishRepository {
 		});
 
 		return DishEntity.fromPrisma(row);
+	}
+
+	async findAll(): Promise<DishEntity[]> {
+		const rows = await this.prisma.dish.findMany({
+			include: {
+				ingredients: {
+					include: {
+						ingredient: true,
+					},
+				},
+			},
+		});
+
+		return rows.map((row) => {
+			const ingredients = row.ingredients.map((ingredient) =>
+				IngredientEntity.fromPrisma(ingredient.ingredient),
+			);
+
+			return DishEntity.fromPrisma(row, ingredients);
+		});
 	}
 }
