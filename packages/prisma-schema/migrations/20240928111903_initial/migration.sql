@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "dish_categories" AS ENUM ('APPETIZER', 'MAIN_COURSE', 'DESSERT', 'BEVERAGE');
+CREATE TYPE "dish_categories" AS ENUM ('APPETIZER', 'MAIN_COURSE', 'SIDE_DISH', 'DESSERT', 'SOUP', 'SNACK', 'BEVERAGE');
 
 -- CreateEnum
 CREATE TYPE "order_statuses" AS ENUM ('PENDING', 'PREPARING', 'SERVED', 'PAID');
@@ -12,7 +12,7 @@ CREATE TYPE "reservation_statuses" AS ENUM ('CONFIRMED', 'CANCELLED', 'COMPLETED
 
 -- CreateTable
 CREATE TABLE "dishes" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
@@ -25,8 +25,8 @@ CREATE TABLE "dishes" (
 
 -- CreateTable
 CREATE TABLE "dish_ingredients" (
-    "dish_id" INTEGER NOT NULL,
-    "ingredient_id" INTEGER NOT NULL,
+    "dish_id" TEXT NOT NULL,
+    "ingredient_id" TEXT NOT NULL,
     "quantity" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "dish_ingredients_pkey" PRIMARY KEY ("dish_id","ingredient_id")
@@ -34,9 +34,10 @@ CREATE TABLE "dish_ingredients" (
 
 -- CreateTable
 CREATE TABLE "ingredients" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "unit" TEXT NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -45,7 +46,7 @@ CREATE TABLE "ingredients" (
 
 -- CreateTable
 CREATE TABLE "orders" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "table_number" INTEGER NOT NULL,
     "status" "order_statuses" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -56,8 +57,8 @@ CREATE TABLE "orders" (
 
 -- CreateTable
 CREATE TABLE "order_dish" (
-    "order_id" INTEGER NOT NULL,
-    "dish_id" INTEGER NOT NULL,
+    "order_id" TEXT NOT NULL,
+    "dish_id" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
 
     CONSTRAINT "order_dish_pkey" PRIMARY KEY ("order_id","dish_id")
@@ -65,7 +66,7 @@ CREATE TABLE "order_dish" (
 
 -- CreateTable
 CREATE TABLE "reservations" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "customer_name" TEXT NOT NULL,
     "time" TIMESTAMP(3) NOT NULL,
     "party_size" INTEGER NOT NULL,

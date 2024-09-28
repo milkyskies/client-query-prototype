@@ -1,5 +1,4 @@
 import fastify from "fastify";
-import type { OrderEntity } from "@client-query/core/src/domain/entity/order.entity";
 
 const server = fastify();
 

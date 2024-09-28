@@ -3,15 +3,16 @@ import type {
 	ReservationStatus,
 } from "@prisma/client";
 import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import { appDayjs } from "../../util/dayjs";
 
 export type ReservationValues = {
-	id: number;
+	id: string;
 	customerName: string;
 	time: Dayjs;
 	status: ReservationStatus;
 	createdAt: Dayjs;
 	updatedAt: Dayjs;
+	partySize: number;
 };
 
 export class ReservationEntity {
@@ -25,12 +26,25 @@ export class ReservationEntity {
 		const values = {
 			id: reservation.id,
 			customerName: reservation.customerName,
-			time: dayjs(reservation.time),
+			time: appDayjs(reservation.time),
 			status: reservation.status,
-			createdAt: dayjs(reservation.createdAt),
-			updatedAt: dayjs(reservation.updatedAt),
+			createdAt: appDayjs(reservation.createdAt),
+			updatedAt: appDayjs(reservation.updatedAt),
+			partySize: reservation.partySize,
 		};
 
 		return new ReservationEntity(values);
+	}
+
+	public toPrisma(): PrismaReservation {
+		return {
+			id: this.values.id,
+			customerName: this.values.customerName,
+			time: this.values.time.toDate(),
+			partySize: this.values.partySize,
+			status: this.values.status,
+			createdAt: this.values.createdAt.toDate(),
+			updatedAt: this.values.updatedAt.toDate(),
+		};
 	}
 }

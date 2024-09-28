@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
-    "fastify"
+    "fastify",
+    "Gimei",
+    "huideyeren"
   ],
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
